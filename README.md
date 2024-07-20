@@ -20,8 +20,8 @@ const app=express();
 app.use(cookieParser);
 
 app.get("/",(req,res)=>{
-  console.log(req.cookie); // it will give key-value pair of cookies
-  return status(200).send(req.cookie);
+  console.log(req.cookies); // it will give key-value pair of cookies
+  return status(200).send(req.cookies);
 })
 
 app.listen(PORT,()=>{
@@ -38,7 +38,7 @@ const {parseCookieString}=require("cookie-string-parser");
 const app=express();
 
 app.get("/",(req,res)=>{
-  let cookieObj=parseCookieString(req.headers.cookie);
+  let cookieObj=parseCookieString(req.headers.cookies);
   console.log(cookieObj); // it will give key-value pair of cookies
   return status(200).send(cookieObj);
 })
@@ -50,16 +50,16 @@ app.listen(PORT,()=>{
 `typescript`
 #### cookieParser-middleware
 ```typescript
-import express from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import { cookieParser } from 'cookie-string-parser';
 
-const app=express();
+const app: Application = express();
 
 app.use(cookieParser);
 
-app.get('/', (req: any, res: any) => {
-  console.log(req.cookie); // it will give key-value pair of cookies
-  return res.status(200).send(req.cookie);
+app.get('/', (req: Request, res: Response)=> {
+  console.log(req.cookies); // it will give key-value pair of cookies
+  return res.status(200).send(req.cookies);
 });
 
 app.listen(PORT,()=>{
@@ -69,12 +69,12 @@ app.listen(PORT,()=>{
 ### OR
 #### parseCookieString-parse cookie string
 ```typescript
-import express from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import { parseCookieString } from 'cookie-string-parser';
 
-const app=express();
+const app: Application = express();
 
-app.get("/",(req: any,res: any)=>{
+app.get("/", (req: Request, res: Response) =>{
   let cookieObj=parseCookieString(req.headers.cookie);
   console.log(cookieObj); // it will give key-value pair of cookies
   return status(200).send(cookieObj);

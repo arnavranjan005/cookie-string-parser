@@ -1,7 +1,9 @@
-import { cookieParserprops, cookieProps, cookieString } from "./types";
+import { NextFunction, Request, Response } from "./interface";
+import {cookieProps, cookieString } from "./types";
 
 export function parseCookieString(cookieString:cookieString) {
-    const cookies:cookieProps = {};
+  if(!cookieString) return {};
+  const cookies:cookieProps = {};
     cookieString.split(';').forEach(cookie => {
       const [name, value] = cookie.split('=').map(c => c.trim());
       cookies[name] = decodeURIComponent(value);
@@ -9,11 +11,7 @@ export function parseCookieString(cookieString:cookieString) {
     return cookies;
   }
 
-export function cookieParser({req,res,next}:cookieParserprops):void {
-  if (!req.headers || !req.headers.cookie) {
-    req.cookie = {}; // Ensure req.cookie is defined
-  } else {
-    req.cookie = parseCookieString(req.headers.cookie);
-  }
-  next();
+export function cookieParser(req:Request,res:Response,next:NextFunction):void {
+   req.cookies = parseCookieString(req.headers.cookie||'');
+  return next();
   }
