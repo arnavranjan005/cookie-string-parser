@@ -1,6 +1,6 @@
 {
   "name": "cookie-string-parser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -18,7 +18,8 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arnavranjan005/cookie-string-parser.git"},
+    "url": "https://github.com/arnavranjan005/cookie-string-parser.git"
+  },
   "devDependencies": {
     "tsup": "^8.2.0",
     "typescript": "^5.5.3"
