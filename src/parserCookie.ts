@@ -9,9 +9,8 @@ export function parseCookieString(cookieString:cookieString) {
     return cookies;
   }
 
-export function cookieParser({req,res,next}:cookieParserprops){
-    const cookies=parseCookieString(req.headers.cookie);
-    if (cookies) req.cookie=cookies;
-    else req.cookie={};
+export function cookieParser({req,res,next}:cookieParserprops):void {
+    const cookies=parseCookieString(req.headers.cookie||'');
+    req.cookie = cookies || {};
     return next();
   }
