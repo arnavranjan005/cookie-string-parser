@@ -10,7 +10,10 @@ export function parseCookieString(cookieString:cookieString) {
   }
 
 export function cookieParser({req,res,next}:cookieParserprops):void {
-    const cookies=parseCookieString(req.headers.cookie||'');
-    req.cookie = cookies || {};
-    return next();
+  if (!req.headers || !req.headers.cookie) {
+    req.cookie = {}; // Ensure req.cookie is defined
+  } else {
+    req.cookie = parseCookieString(req.headers.cookie);
+  }
+  next();
   }
