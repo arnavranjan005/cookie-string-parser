@@ -21,7 +21,7 @@ app.use(cookieParser);
 
 app.get("/",(req,res)=>{
   console.log(req.cookies); // it will give key-value pair of cookies
-  return status(200).send(req.cookies);
+  return res.status(200).send(req.cookies);
 })
 
 app.listen(PORT,()=>{
@@ -40,7 +40,7 @@ const app=express();
 app.get("/",(req,res)=>{
   let cookieObj=parseCookieString(req.headers.cookies);
   console.log(cookieObj); // it will give key-value pair of cookies
-  return status(200).send(cookieObj);
+  return res.status(200).send(cookieObj);
 })
 
 app.listen(PORT,()=>{
@@ -77,7 +77,7 @@ const app: Application = express();
 app.get("/", (req: Request, res: Response) =>{
   let cookieObj=parseCookieString(req.headers.cookie);
   console.log(cookieObj); // it will give key-value pair of cookies
-  return status(200).send(cookieObj);
+  return res.status(200).send(cookieObj);
 });
 
 app.listen(PORT,()=>{
