@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "./interface";
 import {cookieProps, cookieString } from "./types";
+import jwt from "jsonwebtoken";
 
 export function parseCookieString(cookieString:cookieString) {
   if(!cookieString) return {};
@@ -15,3 +16,20 @@ export function cookieParser(req:Request,res:Response,next:NextFunction):void {
    req.cookies = parseCookieString(req.headers.cookie||'');
   return next();
   }
+
+export function create_JWTtoken(payload: string[],secretKey:string,algorithm:jwt.Algorithm="HS256"):any {
+    if(!payload) return null;
+    if(!secretKey) return null;
+    return jwt.sign({ data: payload }, secretKey, { algorithm });
+}
+
+export function verify_JWTtoken(token:string,secretKey:string,algorithm:jwt.Algorithm="HS256"):any {
+    if(!token) return null;
+    if(!secretKey) return null;
+    try{
+    return jwt.verify(token, secretKey, { algorithms: [algorithm] });
+    }
+    catch(err){
+        return null;
+    }
+}
