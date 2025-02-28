@@ -17,10 +17,10 @@ export function cookieParser(req:Request,res:Response,next:NextFunction):void {
   return next();
   }
 
-export function create_JWTtoken(payload: string[],secretKey:string,algorithm:jwt.Algorithm="HS256"):any {
+export function create_JWTtoken(payload: string[],secretKey:string,algorithm:jwt.Algorithm="HS256",expiresIn?:string):any {
     if(!payload) return null;
     if(!secretKey) return null;
-    return jwt.sign({ data: payload }, secretKey, { algorithm });
+    return jwt.sign({ data: payload }, secretKey, { algorithm,expiresIn });
 }
 
 export function verify_JWTtoken(token:string,secretKey:string,algorithm:jwt.Algorithm="HS256"):any {
