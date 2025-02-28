@@ -1,4 +1,4 @@
-import { cookieProps } from "cookie-string-parser";
+import { cookieProps } from "./types";
 
 export interface Request {
     headers: {

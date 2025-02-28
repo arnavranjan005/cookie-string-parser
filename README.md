@@ -65,7 +65,7 @@ app.use(express.json());
 
 app.post('/setCookie',(req,res)=>{
   const {username,email}=req.body;
-  const token= create_JWTtoken([username,email],process.env.secret,{algorithm:'HS256'}); // note algorithm is optional. Default it is HS256.
+  const token= create_JWTtoken([username,email],process.env.secret,{algorithm:'HS256'},{expiresIn:'1d'}); // note algorithm is optional. Default it is HS256.
 
   res.cookie('jwt',token);
   return res.status(200).send('cookie set');
@@ -138,7 +138,7 @@ app.use(express.json());
 
 app.post('/setCookie', (req: Request, res: Response) => {
   const { username, email } = req.body;
-  const token = create_JWTtoken([username, email], process.env.secret as string, { algorithm: 'HS256' });
+  const token = create_JWTtoken([username, email], process.env.secret as string, { algorithm: 'HS256' },{expiresIn:'1d'});
 
   res.cookie('jwt', token);
   return res.status(200).send('cookie set');
