@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "./interface";
+import {  NextFunction, Request, Response } from "./interface";
 import {cookieProps, cookieString } from "./types";
 import jwt from "jsonwebtoken";
 
@@ -17,19 +17,29 @@ export function cookieParser(req:Request,res:Response,next:NextFunction):void {
   return next();
   }
 
-export function create_JWTtoken(payload: string[],secretKey:string,algorithm:jwt.Algorithm="HS256",expiresIn?:string):any {
+export function create_JWTtoken(payload: string[],secretKey:string,expiresIn: string):string|null {
     if(!payload) return null;
     if(!secretKey) return null;
-    return jwt.sign({ data: payload }, secretKey, { algorithm,expiresIn });
+
+    try{
+    const signOptions: jwt.SignOptions = {
+      expiresIn,
+    };
+
+    return jwt.sign({ data: payload }, secretKey,signOptions);
+  }
+  catch(err:any){
+    throw new Error(err.message);
+  }
 }
 
-export function verify_JWTtoken(token:string,secretKey:string,algorithm:jwt.Algorithm="HS256"):any {
+export function verify_JWTtoken(token:string,secretKey:string):any {
     if(!token) return null;
     if(!secretKey) return null;
     try{
-    return jwt.verify(token, secretKey, { algorithms: [algorithm] });
+    return jwt.verify(token, secretKey);
     }
-    catch(err){
-        return null;
+    catch(err:any){
+      throw new Error(err.message);
     }
 }
